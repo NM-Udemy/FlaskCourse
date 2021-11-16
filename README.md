@@ -1,6 +1,28 @@
 # FlaskCourse
 UdemyのFlaskコースです
 
+
+
+https://www.udemy.com/course/flaskpythonweb/?couponCode=31DA220F3E6FF0DDCFB5
+
+
+
+Udemyの他の講座のクーポンは以下
+
+
+
+https://startcode.co.jp/%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9f%e3%83%b3%e3%82%b0%e6%95%99%e8%82%b2%e4%ba%8b%e6%a5%ad/
+
+
+
+Flaskのチュートリアル
+
+
+
+https://www.nblog09.com/w/0%e3%81%8b%e3%82%89%e5%ad%a6%e3%81%b6flask%e5%85%a5%e9%96%80%e8%ac%9b%e5%ba%a7/
+
+
+
 ### 01_routing
 
 基本講座～ルーティング～
