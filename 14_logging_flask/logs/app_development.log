@@ -1,0 +1,36 @@
+2020-11-18 07:58:46,418, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO,  * Restarting with stat
+2020-11-18 07:58:48,547, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, WARNING,  * Debugger is active!
+2020-11-18 07:58:48,571, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO,  * Debugger PIN: 196-822-472
+2020-11-18 07:58:48,600, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO,  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-11-18 07:58:56,121, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 10, INFO, Home画面です
+2020-11-18 07:58:56,348, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO, 127.0.0.1 - - [18/Nov/2020 07:58:56] "[37mGET / HTTP/1.1[0m" 200 -
+2020-11-18 07:58:56,644, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO, 127.0.0.1 - - [18/Nov/2020 07:58:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2020-11-18 07:59:04,832, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 10, INFO, Home画面です
+2020-11-18 07:59:04,844, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO, 127.0.0.1 - - [18/Nov/2020 07:59:04] "[37mGET / HTTP/1.1[0m" 200 -
+2020-11-18 08:02:47,265, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO,  * Detected change in 'd:\\10_work\\10_udemy\\05_flask\\addtional\\login-sample\\setup.py', reloading
+2020-11-18 08:02:47,445, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO,  * Restarting with stat
+2020-11-18 08:02:57,122, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 10, INFO, Home画面です
+2020-11-18 08:03:19,990, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 10, INFO, Home画面です
+2020-11-18 08:04:04,618, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\models.py, line 30, WARNING, パスワードが誤っています
+2020-11-18 08:05:14,277, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 10, INFO, Home画面です
+2020-11-18 11:22:15,028, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 63, INFO, user: , 127.0.0.1, GET, http://127.0.0.1:5000/, b''
+2020-11-18 11:22:15,029, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 10, INFO, Home画面です
+2020-11-18 11:22:15,057, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 72, INFO, user: , 127.0.0.1, GET, http://127.0.0.1:5000/, b'', 200 OK
+2020-11-18 11:23:31,196, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 63, INFO, user: , 127.0.0.1, GET, http://127.0.0.1:5000/login, b''
+2020-11-18 11:23:31,221, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 72, INFO, user: , 127.0.0.1, GET, http://127.0.0.1:5000/login, b'', 200 OK
+2020-11-18 11:23:36,498, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 63, INFO, user: , 127.0.0.1, POST, http://127.0.0.1:5000/login, b''
+2020-11-18 11:23:36,914, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 72, INFO, user: testest, 127.0.0.1, POST, http://127.0.0.1:5000/login, b'', 302 FOUND
+2020-11-18 11:23:36,936, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 63, INFO, user: testest, 127.0.0.1, GET, http://127.0.0.1:5000/welcome, b''
+2020-11-18 11:23:36,944, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 72, INFO, user: testest, 127.0.0.1, GET, http://127.0.0.1:5000/welcome, b'', 200 OK
+2020-11-18 11:23:51,492, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 63, INFO, user: testest, 127.0.0.1, GET, http://127.0.0.1:5000/, b''
+2020-11-18 11:23:51,494, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 10, INFO, Home画面です
+2020-11-18 11:23:51,510, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 72, INFO, user: testest, 127.0.0.1, GET, http://127.0.0.1:5000/, b'', 200 OK
+2020-11-18 11:23:52,366, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 63, INFO, user: testest, 127.0.0.1, GET, http://127.0.0.1:5000/user, b''
+2020-11-18 11:23:52,372, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 72, INFO, user: testest, 127.0.0.1, GET, http://127.0.0.1:5000/user, b'', 200 OK
+2020-11-18 11:32:55,937, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 67, INFO, user: testest, 127.0.0.1, GET, http://127.0.0.1:5000/user, b''
+2020-11-18 11:32:55,956, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 76, INFO, user: testest, 127.0.0.1, GET, http://127.0.0.1:5000/user, b'', 200 OK
+2020-11-18 11:33:12,102, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 67, INFO, user: testest, 127.0.0.1, GET, http://127.0.0.1:5000/user, b''
+2020-11-18 11:33:12,104, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 76, INFO, user: testest, 127.0.0.1, GET, http://127.0.0.1:5000/user, b'', 200 OK
+2020-11-18 11:33:13,123, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 67, INFO, user: testest, 127.0.0.1, GET, http://127.0.0.1:5000/, b''
+2020-11-18 11:33:13,125, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 13, INFO, Home画面です
+2020-11-18 11:33:13,143, flaskr, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 76, INFO, user: testest, 127.0.0.1, GET, http://127.0.0.1:5000/, b'', 200 OK

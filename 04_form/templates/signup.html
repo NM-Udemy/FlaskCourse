@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>サインアップページ</h1>
+<form action="{{ url_for('home') }}" method="POST">
+    <div>
+        <label for="last_name">名字: </label>
+        <input type="text" name="last_name">     
+    </div>
+    <div>
+        <label for="first_name">名前: </label>
+        <input type="text" name="first_name">
+    </div>
+    <div>
+        <label for="job">職業: </label>
+        <select name="job">
+            <option value="">選択してください</option>
+            <option value="会社員">会社員</option>
+            <option value="公務員">公務員</option>
+            <option value="自営業">自営業</option>
+        </select>
+    </div>
+    <div>
+        <input type="radio" name="gender" value="男性">男性
+        <input type="radio" name="gender" value="女性">女性
+    </div>
+    <div>
+        <textarea name="message" rows="4" cols="40"></textarea>
+    </div>
+    <div>
+        <input type="submit" value="送信">
+    </div>
+</form>
+
+{% endblock %}

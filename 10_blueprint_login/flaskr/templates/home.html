@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        {% if current_user.is_authenticated %}
+        <p>ユーザログイン済み {{current_user.username}}</p>
+        {% else %}
+        <p>ログイン or 登録をしてください</p>
+        {% endif %}
+    </div>
+{% endblock %}

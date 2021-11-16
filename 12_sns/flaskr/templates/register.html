@@ -1,0 +1,16 @@
+{% from "_formhelpers.html" import render_field %}
+{% extends "base.html" %}
+{% block title %}
+ユーザ登録 - {{ super() }}
+{% endblock %}
+{% block content %}
+<h1>ユーザ情報登録画面</h1>
+<div class="row">
+    <form method="POST">
+        {{ form.csrf_token }}
+        {{ render_field(form.username) }}
+        {{ render_field(form.email) }}
+        {{ form.submit() }}
+    </form>
+</div>
+{% endblock %}

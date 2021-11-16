@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <script src="https://js.stripe.com/v3/"></script>
+  </head>
+  <body>
+    <h1>クレジットの2000円支払いが必要です</h1>
+    <button id="checkout-button">クレジット支払いする</button>
+    <script type="text/javascript">
+        var stripe = Stripe('pk_test_51I56o6GizkUni3KPOTSOhrfvFdZ1DlCjQyMfBAxWRkOlTJDIMChPfEQvkOxW7cbo9LZBao3zUXoE0c69leoBZsFB00ML08cTxG');
+        var checkoutButton = document.getElementById('checkout-button');
+        checkoutButton.addEventListener('click', function(){
+            fetch('/create-checkout-session', {
+                method: 'POST',
+            })
+            .then(function(response){
+                return response.json();
+            })
+            .then(function(session){
+                return stripe.redirectToCheckout({ sessionId: session.id});
+            })
+            .then(function(result){
+                if(result.error){
+                    alert(result.error.message);
+                }
+            })
+            .catch(function(error){
+                console.error('Error: ', error);
+            });
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% from "_formhelpers.html" import render_field %}
+{% block content %}
+{% for message in get_flashed_messages() %}
+    <p>{{message}}</p>
+{% endfor %}
+<form method="POST">
+    {{ form.csrf_token }}
+    {{ render_field(form.name, size=100) }}
+    {{ render_field(form.age, class="age-class") }}
+    {{ render_field(form.password) }}
+    {{ render_field(form.confirm_password) }}
+    {{ render_field(form.birthday) }}
+    {{ render_field(form.gender) }}
+    {{ render_field(form.major) }}
+    {{ render_field(form.is_japanese, checked=True) }}
+    {{ render_field(form.message) }}
+    {{ form.submit() }}
+</form>
+{% endblock %}

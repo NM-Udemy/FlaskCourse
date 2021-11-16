@@ -1,0 +1,75 @@
+{% from "_formhelpers.html" import render_field %}
+{% extends "base.html" %}
+{% block title %}
+ユーザ検索 - {{ super() }}
+{% endblock %}
+{% block content %}
+<div class="jumbotron">
+    <p>ユーザ検索画面</p>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <form method="GET">
+            {{ form.csrf_token }}
+            {{ render_field(form.username) }}
+            {{ form.submit() }}
+        </form>
+    </div>
+    <div class="col-lg-12">
+        {% if users %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ユーザ画像</th>
+                    <th>ユーザ名</th>
+                    <th>申請ボタン</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <th>{{ loop.index }}</th>
+                    {% if user.picture_path %}
+                    <th>
+                        <img class="user-image-small" src="{{url_for('static', filename=user.picture_path)}}">
+                    </th>
+                    {% else %}
+                    <th></th>
+                    {% endif %}
+                    <th>{{ user.username }}</th>
+                    <th>
+                        {% if user.joined_status_from_to == 2 or user.joined_status_to_from == 2 %}
+                        友達
+                        {% elif user.joined_status_from_to == 1 %}
+                        友達申請中
+                        {% elif user.joined_status_to_from == 1 %}
+                        <form method="POST" action="{{ url_for('app.connect_user')}}">
+                            {{ connect_form.csrf_token }}
+                            {{ connect_form.connect_condition(value='accept') }}
+                            {{ connect_form.to_user_id(value=user.id) }}
+                            {{ connect_form.submit(class='btn btn-primary', value='友達申請承認する')}}
+                        </form>
+                        {% else %}
+                        <form method="POST" action="{{ url_for('app.connect_user')}}">
+                            {{ connect_form.csrf_token }}
+                            {{ connect_form.connect_condition(value='connect') }}
+                            {{ connect_form.to_user_id(value=user.id) }}
+                            {{ connect_form.submit(class='btn btn-primary', value='友達申請する')}}
+                        </form>
+                        {% endif %}
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if prev_url %}
+            <a href="{{ prev_url }}">前へ</a>
+        {% endif %}
+        {% if next_url %}
+            <a href="{{ next_url }}">次へ</a>
+        {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

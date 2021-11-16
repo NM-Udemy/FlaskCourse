@@ -1,0 +1,31 @@
+{% from "_formhelpers.html" import render_field %}
+{% extends "base.html" %}
+{% block title %}
+ユーザ情報編集画面 - {{ super() }}
+{% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-8 offset-lg-4">
+    {% for message in get_flashed_messages() %}
+    {{ message }}
+    {% endfor %}
+    </div>
+    <div class="col-lg-2 offset-lg-2">
+        {% if current_user.picture_path %}
+        <img class="user-image-big" src="{{url_for('static', filename=current_user.picture_path)}}">
+        {% endif %}
+    </div>
+    <div class="col-lg-4 offset-lg-2">
+        <form method="POST" enctype="multipart/form-data">
+            {{form.csrf_token}}
+            {{render_field(form.username, value=current_user.username)}}
+            {{render_field(form.email, value=current_user.email )}}
+            {{render_field(form.picture_path) }}
+            {{form.submit()}}
+        </form>
+        <a href="{{url_for('app.change_password')}}">パスワードを変更する</a>
+    </div>
+
+</div>
+{% endblock %}

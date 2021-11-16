@@ -1,0 +1,35 @@
+2020-11-18 12:31:13,148, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO,  * Restarting with stat
+2020-11-18 12:31:13,968, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, WARNING,  * Debugger is active!
+2020-11-18 12:31:13,983, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO,  * Debugger PIN: 196-822-472
+2020-11-18 12:31:14,009, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO,  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2020-11-18 12:31:17,474, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 55, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/, b''
+2020-11-18 12:31:17,584, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 61, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/, b'', 200 OK
+2020-11-18 12:31:17,601, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO, 127.0.0.1 - - [18/Nov/2020 12:31:17] "[37mGET / HTTP/1.1[0m" 200 -
+2020-11-18 12:31:40,017, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 55, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/terms, b''
+2020-11-18 12:31:40,028, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 61, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/terms, b'', 200 OK
+2020-11-18 12:31:40,058, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO, 127.0.0.1 - - [18/Nov/2020 12:31:40] "[37mGET /terms HTTP/1.1[0m" 200 -
+2020-11-18 12:31:41,661, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 55, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/memberlist, b''
+2020-11-18 12:31:41,682, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 61, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/memberlist, b'', 200 OK
+2020-11-18 12:31:41,684, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO, 127.0.0.1 - - [18/Nov/2020 12:31:41] "[37mGET /memberlist HTTP/1.1[0m" 200 -
+2020-11-18 12:31:42,342, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 55, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/, b''
+2020-11-18 12:31:42,346, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 61, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/, b'', 200 OK
+2020-11-18 12:31:42,358, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO, 127.0.0.1 - - [18/Nov/2020 12:31:42] "[37mGET / HTTP/1.1[0m" 200 -
+2020-11-18 12:31:43,530, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 55, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/memberlist, b''
+2020-11-18 12:31:43,555, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 61, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/memberlist, b'', 200 OK
+2020-11-18 12:31:43,559, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO, 127.0.0.1 - - [18/Nov/2020 12:31:43] "[37mGET /memberlist HTTP/1.1[0m" 200 -
+2020-11-18 12:31:44,294, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 55, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/member/0, b''
+2020-11-18 12:31:44,312, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 61, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/member/0, b'', 200 OK
+2020-11-18 12:31:44,314, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO, 127.0.0.1 - - [18/Nov/2020 12:31:44] "[37mGET /member/0 HTTP/1.1[0m" 200 -
+2020-11-18 12:31:44,394, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 55, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/static/css/base.css, b''
+2020-11-18 12:31:44,419, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 61, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/static/css/base.css, b'', 304 NOT MODIFIED
+2020-11-18 12:31:44,437, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 55, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/static/image/taro.jpg, b''
+2020-11-18 12:31:44,459, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO, 127.0.0.1 - - [18/Nov/2020 12:31:44] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2020-11-18 12:31:44,484, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 61, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/static/image/taro.jpg, b'', 304 NOT MODIFIED
+2020-11-18 12:31:44,557, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO, 127.0.0.1 - - [18/Nov/2020 12:31:44] "[36mGET /static/image/taro.jpg HTTP/1.1[0m" 304 -
+2020-11-18 12:32:29,134, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 55, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/fasdfafefawfewawe, b''
+2020-11-18 12:32:29,135, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 49, ERROR, ページが誤っています
+2020-11-18 12:32:29,156, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 61, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/fasdfafefawfewawe, b'', 302 FOUND
+2020-11-18 12:32:29,159, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO, 127.0.0.1 - - [18/Nov/2020 12:32:29] "[32mGET /fasdfafefawfewawe HTTP/1.1[0m" 302 -
+2020-11-18 12:32:29,174, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 55, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/, b''
+2020-11-18 12:32:29,222, app, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 61, INFO, 127.0.0.1, GET, http://127.0.0.1:5000/, b'', 200 OK
+2020-11-18 12:32:29,225, werkzeug, C:\Users\naoki\anaconda3\envs\flaskenv\lib\site-packages\werkzeug\_internal.py, line 113, INFO, 127.0.0.1 - - [18/Nov/2020 12:32:29] "[37mGET / HTTP/1.1[0m" 200 -

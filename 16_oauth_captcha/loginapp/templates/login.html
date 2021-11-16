@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="POST">
+  {{ form.csrf_token }}
+  <p>{{ form.email.label }}{{ form.email}}</p>
+  <p>{{ form.password.label }}{{ form.password}}</p>
+  {{ form.submit() }}
+</form>
+{% endblock %}

@@ -1,0 +1,3 @@
+2020-11-18 11:32:55,960, performance, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 80, INFO, GET, http://127.0.0.1:5000/user, execution time = 0.04588174819946289
+2020-11-18 11:33:12,115, performance, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 80, INFO, GET, http://127.0.0.1:5000/user, execution time = 0.016958236694335938
+2020-11-18 11:33:13,144, performance, d:\10_work\10_udemy\05_flask\addtional\login-sample\flaskr\views.py, line 80, INFO, GET, http://127.0.0.1:5000/, execution time = 0.023955821990966797

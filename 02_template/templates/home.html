@@ -1,0 +1,5 @@
+{% extends "base.html" %}{# base.htmlを継承 #}
+{% block title %}Home{% endblock %}
+{% block content %}{# base.htmlのcontent部分を記載 #}
+<h1>{{ "%s(%s)"|format(user_info['name'], user_info['age']) }}さんがログインしました</h1>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% from "_formhelpers.html" import render_field %}
+{% extends "base.html" %}
+{% block content %}
+{% for message in get_flashed_messages() %} {# リダイレクトした際のメッセージ#}
+{{ message }}
+{% endfor %}
+<form method="POST">
+    {{form.csrf_token}}
+    {{render_field(form.email)}}
+    {{render_field(form.password)}}
+    {{form.submit()}}
+</form>
+{% endblock %}

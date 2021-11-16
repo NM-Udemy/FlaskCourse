@@ -1,0 +1,10 @@
+2020-11-18 12:31:17,600, performance, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 65, INFO, GET, http://127.0.0.1:5000/, exection time = 0.16565656661987305
+2020-11-18 12:31:40,057, performance, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 65, INFO, GET, http://127.0.0.1:5000/terms, exection time = 0.039893150329589844
+2020-11-18 12:31:41,684, performance, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 65, INFO, GET, http://127.0.0.1:5000/memberlist, exection time = 0.02294015884399414
+2020-11-18 12:31:42,355, performance, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 65, INFO, GET, http://127.0.0.1:5000/, exection time = 0.012965917587280273
+2020-11-18 12:31:43,557, performance, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 65, INFO, GET, http://127.0.0.1:5000/memberlist, exection time = 0.027929067611694336
+2020-11-18 12:31:44,314, performance, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 65, INFO, GET, http://127.0.0.1:5000/member/0, exection time = 0.0199739933013916
+2020-11-18 12:31:44,457, performance, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 65, INFO, GET, http://127.0.0.1:5000/static/css/base.css, exection time = 0.06482529640197754
+2020-11-18 12:31:44,556, performance, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 65, INFO, GET, http://127.0.0.1:5000/static/image/taro.jpg, exection time = 0.11967206001281738
+2020-11-18 12:32:29,158, performance, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 65, INFO, GET, http://127.0.0.1:5000/fasdfafefawfewawe, exection time = 0.025930166244506836
+2020-11-18 12:32:29,224, performance, d:\10_work\10_udemy\05_flask\addtional\template_exam\app.py, line 65, INFO, GET, http://127.0.0.1:5000/, exection time = 0.050859928131103516

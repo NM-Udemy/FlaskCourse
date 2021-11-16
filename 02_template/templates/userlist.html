@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}UserList{% endblock %}
+{% block content %}
+<a href="{{ url_for('index') }}">Index Page</a>
+<ul>
+{#    <h1>最後の人は{{users|last}}</h1>
+    <h2>{{users|sort|first}}</h2>
+    <h3>{{users|random}}</h3>
+    {% for user in users|reverse %} #}
+    {% for user in users %}{# ループ処理の実行 #}
+{#        <li>{{ user|reverse_name }}</li> #}
+          <li>{{ user.name }} {{ user.age }} born at {{ user.age | born_year}}</li>
+    {% endfor %}
+    </ul>
+    {% if is_login %}{# if文処理の実行 #}
+    <p>ログイン済みです</p>
+    {% else %}
+    <p>ログインしていません</p>
+    {% endif %}
+    {% if 'Taro' in users %}
+    <p>Taroは存在します</p>
+    {% endif %}
+{% endblock %}

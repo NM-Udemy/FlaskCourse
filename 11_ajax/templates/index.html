@@ -1,0 +1,20 @@
+{# index.html #}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(function(){
+        $('a#calculate').bind('click', function(){
+            $.getJSON('/_add_numbers', {
+                a: $('input[name="a"]').val(),
+                b: $('input[name="b"]').val()
+            }, function(data){
+                $("#result").text(data.result)
+            });
+        });
+    });
+</script>
+<h1>Jquery Sample</h1>
+<p><input type="text" size=5 name=a> +
+    <input type="text" size=5 name=b> =
+    <span id=result>?</span>
+</p>
+<a href="#" id=calculate>Calculate</a>

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<p>
+    {% if name and age %}
+    名前: {{ name }} <br>
+    年齢: {{ age }}
+    {% else %}
+    名前と年齢を入力してください
+    {% endif %}
+</p>
+<form method="POST">
+    {{ form.csrf_token }}
+    {{ form.name.label }}{{ form.name() }}
+    {{ form.age.label }}{{ form.age() }}
+    {{ form.submit() }}
+</form>
+{% endblock %}
