@@ -1,8 +1,6 @@
 # FlaskCourse
 UdemyのFlaskコースです
 
-
-
 https://www.udemy.com/course/flaskpythonweb/?couponCode=31DA220F3E6FF0DDCFB5
 
 
