@@ -1,23 +1,45 @@
 {% extends "base.html" %}
-{% block title %}UserList{% endblock %}
+{% block title %}UserList {{ super() }}{% endblock %}
 {% block content %}
-<a href="{{ url_for('index') }}">Index Page</a>
-<ul>
-{#    <h1>最後の人は{{users|last}}</h1>
-    <h2>{{users|sort|first}}</h2>
-    <h3>{{users|random}}</h3>
-    {% for user in users|reverse %} #}
-    {% for user in users %}{# ループ処理の実行 #}
-{#        <li>{{ user|reverse_name }}</li> #}
-          <li>{{ user.name }} {{ user.age }} born at {{ user.age | born_year}}</li>
-    {% endfor %}
-    </ul>
-    {% if is_login %}{# if文処理の実行 #}
-    <p>ログイン済みです</p>
-    {% else %}
-    <p>ログインしていません</p>
-    {% endif %}
-    {% if 'Taro' in users %}
-    <p>Taroは存在します</p>
-    {% endif %}
+{# <h1>{{ users }}</h1> #}
+        <a href="{{ url_for('index') }}">Indexへ</a>
+        <h1>フィルタリング</h1>
+        <p>最初の人: {{ users | first }}</p>
+        <p>最後の人: {{ users | last }}</p>
+        <p>ソート: {{ users|sort|first }}</p>
+        <p>ランダム: {{ users|random }}</p>
+        <h2>逆順</h2>
+        {% for user in users|reverse %}
+            <li>{{ user | reverse_name }}</li>
+        {% endfor %}
+        <p>長さ: {{ users|length }}</p>
+        <p>{{"  abc   " | trim}}</p>
+        <hr>
+        {% for user in users %}
+            {{ loop.index }}: {{ loop.nextitem }}
+            {# {% if loop.last %}
+                <p>あなたは最後です{{ user }}</p>
+            {% endif %} #}
+        {% endfor %}
+        <hr>
+        <ul>
+        {% for user in users %}
+            {% if user=="Taro" %}
+                <p>Taroさんですね</p>
+            {% elif user=="Jiro" %}
+                <p>Jiroですか？</p>
+            {% else %}
+                <p>その他</p>
+            {% endif %}
+            <li>{{ user }}</li>
+        {% endfor %}
+        </ul>
+        {% if is_login %}
+            <p>ログイン済みです</p>
+        {% else %}
+            <p>ログインしていません</p>
+        {% endif %}
+        {% if "Taro" in users %}
+        <p>Taroは存在します</p>
+        {% endif %}
 {% endblock %}

@@ -1,13 +1,21 @@
 {% extends "base.html" %}
 {% block title %}Index {{ super() }}{% endblock %}
-{% block content %}{# base.htmlのcontent部分を記載 #}
-<h1>Hello , HTML</h1>
-<h1>{{ "Hello , HTML"|capitalize }}</h1>{# 文章の最初だけ大文字残り小文字に変換 #}
-<h1>{{ "Hello , HTML"|title }}</h1>{# 単語の最初だけ大文字残り小文字に変換 #}
-<h1>{{ "Hello , HTML"|lower }}</h1>{# 文字を小文字に変換 #}
-<p>{{ user|default("variable user does not exist") }}</p>{# デフォルト値を指定 #}
+{% block content %}
+{% filter lower %}
+<h1>Hello From Flask, HTML</h1>
+<p>Goodbye</p>
+<p>さようなら</p>
+{% endfilter %}
+
+<h1>{{ "Hello From Flask, HTML" | capitalize }}</h1>
+<h1>{{ "Hello From Flask, HTML" | title }}</h1>
+<p>{{ user | default("userが存在しません") }}</p>
 <p>{{ "Jinjaについてもっと詳しく知りたい人は
-    https://jinja.palletsprojects.com/en/2.11.x/
-    まで"|urlize(target='_blank') }}</p>{# 文字列中のURLを遷移できるようにする #}
-<img src="{{ url_for('static', filename='image/cutedog.jpg') }}">{# 画像を表示する #}
+https://google.com/
+まで" | urlize }}</p>
+<p>{{ user | upper }}</p>
+
+<p>犬のリンク</p>
+<img src="{{ url_for('static', filename='image/cutedog.jpg') }}">
+
 {% endblock %}

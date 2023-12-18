@@ -1,6 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Not Found{% endblock %}
+{% block title %}System Error {{ super() }}{% endblock %}
 {% block content %}
-<h1>システムエラーが発生しました</h1>
-{{ error_description }}
+<a href="{{ url_for('index') }}">Indexへ</a>
+<h1>システムエラーです</h1>
+<p>{{ error_description }}</p>
+<img src="{{ url_for('static', filename='image/cutedog.jpg') }}">
+
 {% endblock %}

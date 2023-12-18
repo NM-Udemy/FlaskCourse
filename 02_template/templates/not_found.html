@@ -1,5 +1,8 @@
 {% extends "base.html" %}
-{% block title %}Not Found{% endblock %}
+{% block title %}Not Found {{ super() }}{% endblock %}
 {% block content %}
+<a href="{{ url_for('index') }}">Indexへ</a>
 <h1>ページが存在しません</h1>
+<img src="{{ url_for('static', filename='image/cutedog.jpg') }}">
+
 {% endblock %}

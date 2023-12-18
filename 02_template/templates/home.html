@@ -1,5 +1,8 @@
-{% extends "base.html" %}{# base.htmlを継承 #}
-{% block title %}Home{% endblock %}
-{% block content %}{# base.htmlのcontent部分を記載 #}
-<h1>{{ "%s(%s)"|format(user_info['name'], user_info['age']) }}さんがログインしました</h1>
+{% extends "base.html" %}
+{% block title %}Home {{ super() }}{% endblock %}
+{% block content %}
+{# <h1>{{ user_info.name }}({{ user_info.age }})さんがログインしました</h1> #}
+<h1>{{ "%s(%s)" | format(user_info.name, user_info.age)}}さんがログインしました</h1>
+<p>{{ user_info.age | birth_year }}年に生まれました</p>
+<p>{{ user_info.greet("これからも") }}</p>
 {% endblock %}
