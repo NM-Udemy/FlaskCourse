@@ -1,12 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <p>
-    {% if name and age %}
-    名前: {{ name }} <br>
-    年齢: {{ age }}
-    {% else %}
-    名前と年齢を入力してください
-    {% endif %}
+    {{ name }}({{ age }})
 </p>
 <form method="POST">
     {{ form.csrf_token }}

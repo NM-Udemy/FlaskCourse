@@ -2,7 +2,7 @@
 from flask import(
     Flask, render_template, request, session, redirect, url_for
 )
-from wtforms import Form
+from flask_wtf import FlaskForm
 from wtforms import (
     StringField, IntegerField, BooleanField, DateField, PasswordField,
     RadioField, SelectField, TextAreaField, SubmitField
@@ -18,18 +18,19 @@ from datetime import date, timedelta
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "mykey"
+app.config['WTF_CSRF_TIME_LIMIT'] = 30
 
 def check_name(form, field):
     if field.data == 'いいいい':
         raise ValidationError('その名前は使えません')
 
 
-class UserForm(Form):
+class UserForm(FlaskForm):
     name = StringField('名前: ', default="Flask太郎",
-                       validators=[check_name, DataRequired(), Length(2, 20)],
+                       validators=[check_name, DataRequired('データが入力されていません'), Length(2, 20, '文字数に問題があります')],
                        render_kw={"size": 50},
                        widget=TextArea())
-    age = IntegerField('年齢: ', validators=[NumberRange(0, 100)])
+    age = IntegerField('年齢: ', validators=[NumberRange(0, 100, '数値に問題があります')])
     password = PasswordField('パスワード: ')
     birthday = DateField('誕生日: ')
     gender = RadioField('性別: ', choices=[('man', '男性'), ('woman', '女性')],
@@ -41,29 +42,24 @@ class UserForm(Form):
     message = TextAreaField('メッセージ: ', render_kw={'placeholder': "一言"})
     submit = SubmitField('送信')
     
-    class Meta:
-        csrf = True
-        csrf_class = SessionCSRF
-        csrf_secret = b'aaaaaaabbbb'
-        csrf_time_limit = timedelta(minutes=1)
-
-        @property
-        def csrf_context(self):
-            return session
-    
     def validate_name(self, field):
         if field.data == 'ああああ':
             raise ValidationError('その名前は利用できません')
 
-    def validate(self):
-        if not super(UserForm, self).validate():
-            if self.csrf_token.errors:
-                for i, error in enumerate(self.csrf_token.errors):
-                    if error == 'CSRF token expired.':
-                        self.csrf_token.errors[i] = 'セッションが切れています'
+    def validate(self, extra_validators=None):
+        if not super(UserForm, self).validate(extra_validators):
+            # if self.csrf_token.errors:
+            #     for i, error in enumerate(self.csrf_token.errors):
+            #         if error == 'CSRF token expired.':
+            #             self.csrf_token.errors[i] = 'セッションが切れています'
             return False
         today = date.today()
         calculated_age = today.year - self.birthday.data.year
+        
+        # 今年の誕生日がまだきていなければ、年齢から1を引く
+        if (today.month, today.day) < (self.birthday.data.month, self.birthday.data.day):
+            calculated_age -= 1
+        
         if calculated_age == self.age.data:
             return True
         self.age.errors.append('誕生日と一致しません')
@@ -73,7 +69,7 @@ class UserForm(Form):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = UserForm(request.form)
-    if request.method == "POST" and form.validate():
+    if request.method == "POST" and form.validate_on_submit():
         session['name'] = form.name.data
         session['age'] = form.age.data
         session['birthday'] = form.birthday.data
@@ -83,7 +79,6 @@ def index():
             form.is_japanese.data else '外国人'
         session['message'] = form.message.data
         return redirect(url_for('show_user'))
-    print(form.name.errors)
     return render_template('user_regist.html', form=form)
 
 @app.route('/show_user', methods=['POST', 'GET'])
