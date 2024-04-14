@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div>
+    <h1>メンバー更新</h1>
+    <form method="POST">
+        {{ form.csrf_token }}
+        <p>{{ form.name.label }}{{ form.name(value=member.name) }}</p>
+        <p>{{ form.age.label }}{{ form.age(value=member.age) }}</p>
+        <p>{{ form.comment.label }}{{ form.comment() }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</div>
+{% endblock %}
