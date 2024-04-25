@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}FLASK SNS{% endblock %}</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+        <link rel="icon" href="{{ url_for('static', filename='icon/flask.png')}}">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{{url_for('app.home')}}">
+                ホーム
+            </a>
+            {% if current_user.is_authenticated %}
+            <a class="navbar-brand" href="{{url_for('app.logout')}}">
+                ログアウト
+            </a>
+            <a class="navbar-brand" href="{{url_for('app.user')}}">
+                ユーザ情報編集
+            </a>
+            <a class="navbar-brand" href="{{ url_for('app.user_search')}}">
+                ユーザ検索
+            </a>
+            {% else %}
+            <a class="navbar-brand" href="{{url_for('app.login')}}">
+                ログイン
+            </a>
+            <a class="navbar-brand" href="{{url_for('app.register')}}">
+                登録
+            </a>
+            {% endif %}
+        </nav>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

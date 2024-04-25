@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}
+ホーム - {{ super() }}
+{% endblock %}
+{% block content %}
+<div class="row">
+    {% if current_user.is_authenticated %}
+    <div class="col-lg-2 offset-lg-2">
+        {% if current_user.picture_path %}
+            <img class="user-image-big" src="{{ url_for('static', filename=current_user.picture_path) }}">
+        {% endif %}
+    </div>
+    <div class="col-lg-4 offset-lg-2">
+        <p>ユーザ名: {{ current_user.username }}</p>
+        <p>メールアドレス: {{ current_user.email }}</p>
+    </div>
+    <div class="col-lg-8 offset-lg-2">
+        <h2>友達一覧</h2>
+        <table class="table table-bordered">
+            {% for friend in friends %}
+                <tr>
+                    {% if friend.picture_path %}
+                    <td><img class="user-image-small" src="{{url_for('static', filename=friend.picture_path)}}"></td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                    <td>{{ friend.username }}</td>
+                    <td><a href="{{ url_for('app.message', id=friend.id) }}" class="btn btn-link">メッセージを送る</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-lg-8 offset-lg-2">
+        <h2>以下の人が友達申請しています</h2>
+        <table class="table table-bordered">
+            {% for friend in requested_friends %}
+            <tr>
+                {% if friend.picture_path %}
+                <td><img class="user-image-small" src="{{ url_for('static', filename=friend.picture_path)}}"></td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                <td>{{ friend.username }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('app.connect_user')}}">
+                        {{ connect_form.csrf_token }}
+                        {{ connect_form.connect_condition(value='accept')}}
+                        {{ connect_form.to_user_id(value=friend.id)}}
+                        {{ connect_form.submit(class='btn btn-primary', value='友達申請承認する')}}
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-lg-8 offset-lg-2">
+        <h2>承認待ちの友達です</h2>
+        <table class="table table-bordered">
+            {% for friend in requesting_friends %}
+            <tr>
+                {% if friend.picture_path %}
+                <td><img class="user-image-small" src="{{ url_for('static', filename=friend.picture_path)}}"></td>
+                {% else %}
+                <td></td>
+                {% endif %}
+                <td>{{ friend.username }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% else %}
+        <p>ログイン or 登録をしてください</p>
+    {% endif %}
+</div>
+{% endblock %}
