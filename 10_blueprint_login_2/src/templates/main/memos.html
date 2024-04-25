@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block content %}
+<button id="fetch-button">データを取得</button>
+<div id="result"></div>
+
+<form id="my-form">
+    {{ form.csrf_token }}
+    {{ form.title.label }}<br>
+    {{ form.title(size=50) }}<br>
+    {{ form.content.label }}<br>
+    {{ form.content(rows=5) }}<br>
+    {{ form.submit() }}
+</form>
+<table id="memo-table">
+    <thead>
+        <tr>
+            <th>タイトル</th>
+            <th>内容</th>
+            <th>更新</th>
+            <th>削除</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for memo in memo_list %}
+            <tr>
+                <td>{{ form.title(value=memo.title, form='update-form-' ~ memo.id) }}</td>
+                <td>
+                    <textarea id="content" form="update-form-{{ memo.id }}" name="content">{{ memo.content }}</textarea>
+                </td>
+                <td>
+                    <form method="POST" id="update-form-{{ memo.id }}" action="{{ url_for('main.update_memo') }}">
+                        {{ form.csrf_token }}
+                        {{ form.id(value=memo.id) }}
+                        {{ form.submit() }}
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="{{ url_for('main.delete_memo')}}">
+                    {{ delete_form.csrf_token }}
+                    {{ delete_form.id(value=memo.id) }}
+                    {{ delete_form.submit() }}
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+document.getElementById("my-form").addEventListener("submit", function(event) {
+    event.preventDefault()
+    const form = event.target
+    const formData = new FormData(form)
+    const url = {{ url_for("main.create_memo")|tojson }}
+    
+    fetch(url, {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "fail"){
+            alert('失敗しました');
+            return;
+        }
+        if (data.status === "success"){
+            const tbody = document.querySelector("#memo-table tbody")
+            const newRow = document.createElement("tr")
+
+            newRow.innerHTML = `
+                <td>{{ form.title(value="${data.title}", form="update-form-${data.id}") }}</td>
+                    <td>
+                        <textarea id="content" form="update-form-${data.id}" name="content">${data.content}</textarea>
+                    </td>
+                    <td>
+                        <form method="POST" id="update-form-${data.id}" action="{{ url_for('main.update_memo') }}">
+                            {{ form.csrf_token }}
+                            {{ form.id(value="${data.id}") }}
+                            {{ form.submit() }}
+                        </form>
+                    </td>
+                    <td>
+                        <form method="POST" action="{{ url_for('main.delete_memo')}}">
+                        {{ delete_form.csrf_token }}
+                        {{ delete_form.id(value="${data.id}") }}
+                        {{ delete_form.submit() }}
+                        </form>
+                    </td>
+            `
+            tbody.insertBefore(newRow, tbody.firstChild)
+            form.reset()
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error)
+    })
+})
+document.getElementById("fetch-button").addEventListener("click", function(){
+    const url = {{ url_for("main.get_data")|tojson }}
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const result = document.getElementById("result")
+            result.innerHTML = `
+                <h2>${data.title}</h2>
+                <p>${data.content}</p>
+            `
+        })
+        .catch(error => {
+            console.error(error)
+        })
+})
+
+</script>
+{% endblock %}
