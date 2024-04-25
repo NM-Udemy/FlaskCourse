@@ -10,7 +10,6 @@
 <div class="row">
     <div class="col-lg-12">
         <form method="GET">
-            {{ form.csrf_token }}
             {{ render_field(form.username) }}
             {{ form.submit() }}
         </form>

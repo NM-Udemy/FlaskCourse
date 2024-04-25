@@ -70,7 +70,7 @@ class UserForm(FlaskForm):
     picture_path = FileField('ファイルアップロード')
     submit = SubmitField('登録情報更新')
 
-    def validate(self):
+    def validate(self, extra_validators=None):
         if not super(FlaskForm, self).validate():
             return False
         user = User.select_user_by_email(self.email.data)
@@ -109,7 +109,7 @@ class MessageForm(FlaskForm):
     message = TextAreaField()
     submit = SubmitField('メッセージ送信')
 
-    def validate(self):
+    def validate(self, extra_validators=None):
         if not super(FlaskForm, self).validate():
             return False
         is_friend = UserConnect.is_friend(self.to_user_id.data)

@@ -2,32 +2,35 @@
 from flaskr import db, login_manager
 from flask_bcrypt import generate_password_hash, check_password_hash
 from flask_login import UserMixin, current_user
-from sqlalchemy.orm import aliased
+from sqlalchemy.orm import aliased, DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import and_, or_, desc
 
 from datetime import datetime, timedelta
 from uuid import uuid4
+from typing import List, Optional
+
+class Base(DeclarativeBase):
+    pass
+
+db.model_class = Base
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
 
+
 class User(UserMixin, db.Model):
 
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True)
-    email = db.Column(db.String(64), unique=True, index=True)
-    password = db.Column(
-        db.String(128),
-        default=generate_password_hash('snsflaskapp')
-    )
-    picture_path = db.Column(db.Text)
-    # 有効か無効かのフラグ
-    is_active = db.Column(db.Boolean, unique=False, default=False)
-    create_at = db.Column(db.DateTime, default=datetime.now)
-    update_at = db.Column(db.DateTime, default=datetime.now)
+    id: Mapped[int] = mapped_column(db.Integer, primary_key=True)
+    username: Mapped[str] = mapped_column(db.String(64), index=True)
+    email: Mapped[str] = mapped_column(db.String(64), unique=True, index=True)
+    password: Mapped[str] = mapped_column(db.String(128), default=generate_password_hash("snsflaskapp"))
+    picture_path: Mapped[Optional[str]] = mapped_column(db.Text)
+    is_active: Mapped[bool] = mapped_column(db.Boolean, unique=False, default=False)
+    create_at: Mapped[datetime] = mapped_column(db.DateTime, default=datetime.now)
+    update_at: Mapped[datetime] = mapped_column(db.DateTime, default=datetime.now)
 
     def __init__(self, username, email):
         self.username = username
@@ -51,7 +54,6 @@ class User(UserMixin, db.Model):
         self.password = generate_password_hash(new_password)
         self.is_active = True
     
-    # UserConnectと紐づけます　outer join
     @classmethod
     def search_by_name(cls, username, page=1):
         user_connect1 = aliased(UserConnect) # from_user_id: 検索相手のID、to_user_id: ログインユーザのIDでUserConnectに紐づける
@@ -76,7 +78,9 @@ class User(UserMixin, db.Model):
             cls.id, cls.username, cls.picture_path,
             user_connect1.status.label("joined_status_to_from"),
             user_connect2.status.label("joined_status_from_to")
-        ).order_by(cls.username).paginate(page, 50, False)
+        ).order_by(cls.username).paginate(page=page, per_page=50, error_out=False)
+    
+    
     
     @classmethod
     def select_friends(cls):
@@ -130,17 +134,12 @@ class PasswordResetToken(db.Model):
 
     __tablename__ = 'password_reset_tokens'
 
-    id = db.Column(db.Integer, primary_key=True)
-    token = db.Column(
-        db.String(64),
-        unique=True,
-        index=True,
-        server_default=str(uuid4)
-    )
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    expire_at = db.Column(db.DateTime, default=datetime.now)
-    create_at = db.Column(db.DateTime, default=datetime.now)
-    update_at = db.Column(db.DateTime, default=datetime.now)
+    id: Mapped[int] = mapped_column(db.Integer, primary_key=True)
+    token: Mapped[str] = mapped_column(db.String(64), unique=True, index=True, server_default=str(uuid4))
+    user_id: Mapped[int] = mapped_column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    expire_at: Mapped[datetime] = mapped_column(db.DateTime, default=datetime.now)
+    create_at: Mapped[datetime] = mapped_column(db.DateTime, default=datetime.now)
+    update_at: Mapped[datetime] = mapped_column(db.DateTime, default=datetime.now)
 
     def __init__(self, token, user_id, expire_at):
         self.token = token
@@ -177,17 +176,12 @@ class UserConnect(db.Model):
 
     __tablename__ = 'user_connects'
 
-    id = db.Column(db.Integer, primary_key=True)
-    from_user_id = db.Column(
-        db.Integer, db.ForeignKey('users.id'), index=True
-    ) # どのユーザからの友達申請か
-    to_user_id = db.Column(
-        db.Integer, db.ForeignKey('users.id'), index=True
-    ) # どのユーザへの友達申請か
-    status = db.Column(db.Integer, unique=False, default=1)
-    # 1 申請中、2が承認済み
-    create_at = db.Column(db.DateTime, default=datetime.now)
-    update_at = db.Column(db.DateTime, default=datetime.now)
+    id: Mapped[int] = mapped_column(db.Integer, primary_key=True)
+    from_user_id: Mapped[int] = mapped_column(db.Integer, db.ForeignKey("users.id"), index=True)
+    to_user_id: Mapped[int] = mapped_column(db.Integer, db.ForeignKey("users.id"), index=True)
+    status: Mapped[int] = mapped_column(db.Integer, unique=False, default=1)
+    create_at: Mapped[datetime] = mapped_column(db.DateTime, default=datetime.now)
+    update_at: Mapped[datetime] = mapped_column(db.DateTime, default=datetime.now)
 
     def __init__(self, from_user_id, to_user_id):
         self.from_user_id = from_user_id
@@ -229,26 +223,15 @@ class Message(db.Model):
 
     __tablename__ = 'messages'
 
-    id = db.Column(db.Integer, primary_key=True)
-    from_user_id = db.Column(
-        db.Integer, db.ForeignKey('users.id'), index=True
-    )
-    to_user_id = db.Column(
-        db.Integer, db.ForeignKey('users.id'), index=True
-    )
-    is_read = db.Column(
-        db.Boolean, default=False
-    )
-    # 既読のものを確認したか
-    is_checked = db.Column(
-        db.Boolean, default=False
-    )
-    message = db.Column(
-        db.Text
-    )
-    create_at = db.Column(db.DateTime, default=datetime.now)
-    update_at = db.Column(db.DateTime, default=datetime.now)
-    
+    id: Mapped[int] = mapped_column(db.Integer, primary_key=True)
+    from_user_id: Mapped[int] = mapped_column(db.Integer, db.ForeignKey("users.id"), index=True)
+    to_user_id: Mapped[int] = mapped_column(db.Integer, db.ForeignKey("users.id"), index=True)
+    is_read: Mapped[bool] = mapped_column(db.Boolean, default=False)
+    is_checked: Mapped[bool] = mapped_column(db.Boolean, default=False)
+    message: Mapped[str] = mapped_column(db.Text)
+    create_at: Mapped[datetime] = mapped_column(db.DateTime, default=datetime.now)
+    update_at: Mapped[datetime] = mapped_column(db.DateTime, default=datetime.now)
+
     def __init__(self, from_user_id, to_user_id, message):
         self.from_user_id = from_user_id
         self.to_user_id = to_user_id

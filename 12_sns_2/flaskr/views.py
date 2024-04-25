@@ -11,7 +11,7 @@ from flaskr.models import (
     User, PasswordResetToken, UserConnect,
     Message
 )
-from flaskr import db
+from flaskr import db, basedir
 
 from flaskr.forms import (
     LoginForm, RegisterForm, ResetPasswordForm,
@@ -19,6 +19,7 @@ from flaskr.forms import (
     UserSearchForm, ConnectForm, MessageForm
 )
 from flaskr.utils.message_format import make_message_format, make_old_message_format
+import os
 
 bp = Blueprint('app', __name__, url_prefix='')
 
@@ -47,7 +48,7 @@ def logout():
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm(request.form)
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST' and form.validate_on_submit():
         user = User.select_user_by_email(form.email.data)
         if user and user.is_active and user.validate_password(form.password.data):
             login_user(user, remember=True)
@@ -66,17 +67,15 @@ def login():
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm(request.form)
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST' and form.validate_on_submit():
         user = User(
             username = form.username.data,
             email = form.email.data
         )
-        with db.session.begin(subtransactions=True):
-            user.create_new_user()
+        user.create_new_user()
         db.session.commit()
         token = ''
-        with db.session.begin(subtransactions=True):
-            token = PasswordResetToken.publish_token(user)
+        token = PasswordResetToken.publish_token(user)
         db.session.commit()
         # メールに飛ばすほうがいい
         print(
@@ -92,12 +91,11 @@ def reset_password(token):
     reset_user_id = PasswordResetToken.get_user_id_by_token(token)
     if not reset_user_id:
         abort(500)
-    if request.method=='POST' and form.validate():
+    if request.method=='POST' and form.validate_on_submit():
         password = form.password.data
         user = User.select_user_by_id(reset_user_id)
-        with db.session.begin(subtransactions=True):
-            user.save_new_password(password)
-            PasswordResetToken.delete_token(token)
+        user.save_new_password(password)
+        PasswordResetToken.delete_token(token)
         db.session.commit()
         flash('パスワードを更新しました。')
         return redirect(url_for('app.login'))
@@ -106,12 +104,11 @@ def reset_password(token):
 @bp.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
     form = ForgotPasswordForm(request.form)
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST' and form.validate_on_submit():
         email = form.email.data
         user = User.select_user_by_email(email)
         if user:
-            with db.session.begin(subtransactions=True):
-                token = PasswordResetToken.publish_token(user)
+            token = PasswordResetToken.publish_token(user)
             db.session.commit()
             reset_url = f'http://127.0.0.1:5000/reset_password/{token}'
             print(reset_url)
@@ -124,19 +121,19 @@ def forgot_password():
 @login_required
 def user():
     form = UserForm(request.form)
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST' and form.validate_on_submit():
         user_id = current_user.get_id()
         user = User.select_user_by_id(user_id)
-        with db.session.begin(subtransactions=True):
-            user.username = form.username.data
-            user.email = form.email.data
-            file = request.files[form.picture_path.name].read()
-            if file:
-                file_name = user_id + '_' + \
-                    str(int(datetime.now().timestamp())) + '.jpg'
-                picture_path = 'flaskr/static/user_image/' + file_name
-                open(picture_path, 'wb').write(file)
-                user.picture_path = 'user_image/' + file_name
+        user.username = form.username.data
+        user.email = form.email.data
+        file = request.files[form.picture_path.name].read()
+        if file:
+            file_name = user_id + '_' + \
+                str(int(datetime.now().timestamp())) + '.jpg'
+            # picture_path = 'flaskr/static/user_image/' + file_name
+            picture_path = os.path.join(basedir, "static", "user_image", file_name)
+            open(picture_path, 'wb').write(file)
+            user.picture_path = 'user_image/' + file_name
         db.session.commit()
         flash('ユーザ情報の更新に成功しました')
     return render_template('user.html', form=form)
@@ -145,11 +142,10 @@ def user():
 @login_required
 def change_password():
     form = ChangePasswordForm(request.form)
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST' and form.validate_on_submit():
         user = User.select_user_by_id(current_user.get_id())
         password = form.password.data
-        with db.session.begin(subtransactions=True):
-            user.save_new_password(password)
+        user.save_new_password(password)
         db.session.commit()
         flash('パスワードの更新に成功しました')
         return redirect(url_for('app.user'))
@@ -185,18 +181,16 @@ def user_search():
 @login_required
 def connect_user():
     form = ConnectForm(request.form)
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST' and form.validate_on_submit():
         if form.connect_condition.data == 'connect':
             new_connect = UserConnect(current_user.get_id(), form.to_user_id.data)
-            with db.session.begin(subtransactions=True):
-                new_connect.create_new_connect()
+            new_connect.create_new_connect()
             db.session.commit()
         elif form.connect_condition.data == 'accept':
             connect = UserConnect.select_by_from_user_id(form.to_user_id.data)
             # 相手から自分へのUserConnectを取得
             if connect:
-                with db.session.begin(subtransactions=True):
-                    connect.update_status() # status 1 => 2
+                connect.update_status() # status 1 => 2
                 db.session.commit()
     next_url = session.pop('url', 'app:home')
     return redirect(url_for(next_url))
@@ -215,18 +209,15 @@ def message(id):
     # すでに読まれていて、かつまだチェックしていない自分のメッセージをチェック
     not_checked_message_ids = [message.id for message in messages if message.is_read and (not message.is_checked) and (message.from_user_id == int(current_user.get_id()))]
     if not_checked_message_ids:
-        with db.session.begin(subtransactions=True):
-            Message.update_is_checked_by_ids(not_checked_message_ids)
+        Message.update_is_checked_by_ids(not_checked_message_ids)
         db.session.commit()
     # read_message_idsのis_readをTrueに変更
     if read_message_ids:
-        with db.session.begin(subtransactions=True):
-            Message.update_is_read_by_ids(read_message_ids)
+        Message.update_is_read_by_ids(read_message_ids)
         db.session.commit()
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST' and form.validate_on_submit():
         new_message = Message(current_user.get_id(), id, form.message.data)
-        with db.session.begin(subtransactions=True):
-            new_message.create_message()
+        new_message.create_message()
         db.session.commit()
         return redirect(url_for('app.message', id=id))
     return render_template(
@@ -244,15 +235,13 @@ def message_ajax():
     not_read_messages = Message.select_not_read_messages(user_id, current_user.get_id())
     not_read_message_ids = [message.id for message in not_read_messages]
     if not_read_message_ids:
-        with db.session.begin(subtransactions=True):
-            Message.update_is_read_by_ids(not_read_message_ids)
+        Message.update_is_read_by_ids(not_read_message_ids)
         db.session.commit()
     # すでに読まれた自分のメッセージでまだチェックしていないものを取得
     not_checked_messages = Message.select_not_checked_messages(current_user.get_id(), user_id)
     not_checked_message_ids = [not_checked_message.id for not_checked_message in not_checked_messages]
     if not_checked_message_ids:
-        with db.session.begin(subtransactions=True):
-            Message.update_is_checked_by_ids(not_checked_message_ids)
+        Message.update_is_checked_by_ids(not_checked_message_ids)
         db.session.commit()
     return jsonify(data=make_message_format(user, not_read_messages), checked_message_ids = not_checked_message_ids)
 
