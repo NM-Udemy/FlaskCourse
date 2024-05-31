@@ -21,6 +21,12 @@ def login():
         user = User.select_by_email(form.email.data)
         login_user(user, remember=True)
         print('ログイン完了')
+        
+        # nextパラメータを取得
+        next_page = request.args.get('next')
+        if next_page:
+            return redirect(next_page)
+        
         return redirect(url_for('account.user'))
     return render_template('account/login.html', form=form)
 
