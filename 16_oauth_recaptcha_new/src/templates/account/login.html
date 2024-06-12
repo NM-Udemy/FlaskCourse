@@ -1,0 +1,15 @@
+{% from "_formhelpers.html" import render_field %}
+{% extends "base.html" %}
+{% block content %}
+<h1>ログイン画面</h1>
+{% for message in get_flashed_messages() %}
+<p>{{ message }}</p>
+{% endfor %}
+<form method="POST">
+    {{ form.csrf_token }}
+    {{ render_field(form.email) }}
+    {{ render_field(form.password) }}
+    {{ form.recaptcha }}
+    {{ form.submit() }}
+</form>
+{% endblock %}
